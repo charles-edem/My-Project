@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Week 2 API</title>
+</head>
+<body>
+    <h1>My Week 2 API!</h1>
+
+    <form id="userForm">
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+            required
+        >
+
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
+
+        <button type="submit">Send</button>
+    </form>
+
+    <p id="response"></p>
+
+    <script>
+        const form = document.getElementById("userForm");
+        const response = document.getElementById("response");
+
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+
+            const result = await fetch("/user", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email
+                })
+            });
+
+            const data = await result.text();
+
+            response.textContent = data;
+        });
+    </script>
+</body>
+</html>
